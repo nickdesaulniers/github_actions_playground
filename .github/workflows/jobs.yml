@@ -59,4 +59,4 @@ jobs:
         LLVM: [0, 1]
     steps:
       - name: ARCH=${{ matrix.ARCH }} LLVM=${{ matrix.LLVM }}
-      - run: echo "ARCH is ${ARCH}\nLLVM is ${LLVM}"
+        run: echo "ARCH is ${ARCH}\nLLVM is ${LLVM}"
