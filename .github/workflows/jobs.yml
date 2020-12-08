@@ -52,3 +52,11 @@ jobs:
           name: output_artifact
       - name: Baz
         run: ./baz.sh
+  consume_matrix:
+    strategy:
+      matrix:
+        ARCH: [x86_64, arm64]
+        LLVM: [0, 1]
+    steps:
+      - name: ARCH=${{ matrix.ARCH }} LLVM=${{ matrix.LLVM }}
+      - run: echo "ARCH is ${ARCH}\nLLVM is ${LLVM}"
