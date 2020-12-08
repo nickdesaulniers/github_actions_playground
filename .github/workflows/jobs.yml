@@ -59,6 +59,10 @@ jobs:
       matrix:
         ARCH: [x86_64, arm64]
         LLVM: [0, 1]
+    env:
+      ARCH: ${{ matrix.ARCH }}
+      LLVM: ${{ matrix.LLVM }}
+    name: ARCH=${{ matrix.ARCH }} LLVM=${{ matrix.LLVM }}
     steps:
       - name: ARCH=${{ matrix.ARCH }} LLVM=${{ matrix.LLVM }}
         run: echo "ARCH is ${ARCH}\nLLVM is ${LLVM}"
