@@ -21,6 +21,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           path: output.txt
+          name: output_artifact
   consume:
     name: Boot test
     runs-on: ubuntu-latest
@@ -28,15 +29,19 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
         name: fetch artifact from Create jobs
+        with:
+          name: output_artifact
       - uses: actions/checkout@v2
       - name: Bar
         run: ./bar.sh
   consume2:
-     runs-on: ubuntu-latest
-     needs: generate
-     steps:
-       - uses: actions/download-artifact@v2
-         name: fetch artifact from Create jobs
-       - uses: actions/checkout@v2
-       - name: Baz
-         run: ./baz.sh
+    runs-on: ubuntu-latest
+    needs: generate
+    steps:
+      - uses: actions/download-artifact@v2
+        name: fetch artifact from Create jobs
+        with:
+          name: output_artifact
+      - uses: actions/checkout@v2
+      - name: Baz
+        run: ./baz.sh
