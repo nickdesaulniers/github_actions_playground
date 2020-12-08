@@ -1,14 +1,13 @@
 name: Clang Linux CI v2
 on:
-  
   # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
-  schedule:
-    - cron:  '* 0 * * *'
+  #schedule:
+    #- cron:  '* 0 * * *'
 
   # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#workflow_dispatch
   workflow_dispatch:
 jobs:
-  generate:
+  kick_tuxbuild:
     name: Kick Off Builds
     runs-on: ubuntu-latest
     steps:
@@ -22,47 +21,23 @@ jobs:
         with:
           path: output.txt
           name: output_artifact
-  consume:
-    name: ARCH=arm64 LLVM=1 LLVM_IAS=1
+  fetch_and_boot:
     runs-on: ubuntu-latest
-    needs: generate
-    env:
-      ARCH: arm64
-      LLVM: 1
-      LLVM_IAS: 1
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
-        with:
-          name: output_artifact
-      - name: Bar
-        run: ./bar.sh
-  consume2:
-    name: ARCH=x86_64 LLVM=1 LLVM_IAS=1
-    runs-on: ubuntu-latest
-    needs: generate
-    env:
-      ARCH: x86_64
-      LLVM: 1
-      LLVM_IAS: 1
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
-        with:
-          name: output_artifact
-      - name: Baz
-        run: ./baz.sh
-  consume_matrix:
-    runs-on: ubuntu-latest
-    needs: generate
+    needs: kick_tuxbuild
     strategy:
       matrix:
         ARCH: [x86_64, arm64]
         LLVM: [0, 1]
+        LLVM_IAS: [0, 1]
     env:
       ARCH: ${{ matrix.ARCH }}
       LLVM: ${{ matrix.LLVM }}
-    name: ARCH=${{ matrix.ARCH }} LLVM=${{ matrix.LLVM }}
+      LLVM_IAS: ${{ matrix.LLVM_IAS }}
+    name: ARCH=${{ matrix.ARCH }} LLVM=${{ matrix.LLVM }} LLVM_IAS=${{ matrix.LLVM_IAS }}
     steps:
-      - name: ARCH=${{ matrix.ARCH }} LLVM=${{ matrix.LLVM }}
-        run: echo "ARCH is ${ARCH}\nLLVM is ${LLVM}"
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: output_artifact
+      - name: Boot Test
+        run: ./bar.sh
