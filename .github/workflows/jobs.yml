@@ -27,21 +27,21 @@ jobs:
     runs-on: ubuntu-latest
     needs: generate
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         name: fetch artifact from Create jobs
         with:
           name: output_artifact
-      - uses: actions/checkout@v2
       - name: Bar
-        run: ./bar.sh
+        run: ls; ./bar.sh
   consume2:
     runs-on: ubuntu-latest
     needs: generate
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         name: fetch artifact from Create jobs
         with:
           name: output_artifact
-      - uses: actions/checkout@v2
       - name: Baz
-        run: ./baz.sh
+        run: ls; ./baz.sh
