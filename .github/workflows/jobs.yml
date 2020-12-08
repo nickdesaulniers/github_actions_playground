@@ -14,7 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create jobs
-        run: foo.sh > output.txt
+        run: |
+          ls -l foo.sh
+          foo.sh > output.txt
   consume:
     name: Boot test
     runs-on: ubuntu-latest
