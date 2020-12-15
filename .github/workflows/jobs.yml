@@ -9,7 +9,8 @@ on:
 jobs:
   kick_tuxbuild:
     name: Kick Off Builds
-    runs-on: ubuntu-latest
+    # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Create jobs
@@ -23,7 +24,7 @@ jobs:
           name: output_artifact
   # Example using 3D matrix.
   fetch_and_boot:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     # Waits on kick_tuxbuild to complete.
     needs: kick_tuxbuild
     strategy:
@@ -50,7 +51,7 @@ jobs:
         run: ./check_logs.py
   # Example without matrix.
   fetch_and_boot_non_matrix:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: kick_tuxbuild
     name: ARCH=riscv LLVM=1 LLVM_IAS=1
     env:
