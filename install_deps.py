@@ -8,16 +8,23 @@ def check_run(command_str):
 
 def install_deps():
     arch_dependencies = {
-      "x86_64": [
-          "qemu-system-x86",
-      ],
-      "arm64": [
-          "qemu-system-aarch64",
-      ],
+      "arm64": ["qemu-system-aarch64"],
+      "arm_v5": ["qemu-system-arm"],
+      "arm_v6": ["qemu-system-arm"],
+      "arm_v7": ["qemu-system-arm"],
+      "mips": ["qemu-system-mips"],
+      "ppc32": ["qemu-system-ppc"],
+      "ppc64": ["qemu-system-ppc"],
+      "ppc64le": ["qemu-system-ppc"],
+      "x86": ["qemu-system-x86"],
+      "x86_64": ["qemu-system-x86"],
+      "s390": ["qemu-system-misc"],
+      "riscv": ["qemu-system-misc"],
     }
     arch = get_arch()
     if not arch in arch_dependencies:
-        print("Unknown arch: %s" % arch, file=sys.stderr)
+        print("Unknown arch \"%s\", can't install dependencies" % arch,
+              file=sys.stderr)
         sys.exit(1)
     # Not specific to any arch.
     dependencies = [
