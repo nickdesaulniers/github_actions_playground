@@ -44,7 +44,6 @@ def _translate_arch(arch):
 
 def _find_build(builds):
     arch = _translate_arch(get_arch())
-    print(json.dumps(builds, indent=4))
     for build in builds:
         # TODO: check more than ARCH
         if build["target_arch"] == arch:

@@ -32,7 +32,7 @@ def install_deps():
     ] + arch_dependencies[arch]
     print("Installing:", dependencies)
 
-    # sudo apt-get update -qq && DEBIAN_FRONTEND=noninteractive sudo apt-get install --no-install-recommends -y expect qemu-system-aarch64 qemu-system-x86
-    subprocess.run("sudo apt-get update -qq".split(" "), check=True)
+    # sudo apt-get -qq update && DEBIAN_FRONTEND=noninteractive sudo apt-get -qq install --no-install-recommends -y expect qemu-system-aarch64 qemu-system-x86
+    subprocess.run("sudo apt-get -qq update".split(" "), check=True)
     env = {"DEBIAN_FRONTEND": "noninteractive"}
-    subprocess.run("sudo apt-get install --no-install-recommends -y".split(" ") + dependencies, check=True, env=env)
+    subprocess.run("sudo apt-get -qq install --no-install-recommends -y".split(" ") + dependencies, check=True, env=env)
