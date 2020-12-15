@@ -28,9 +28,9 @@ def _translate_arch(arch):
     """
     return {
         "arm64": "arm64",
-        "arm_v5": "arm",
-        "arm_v6": "arm",
-        "arm_v7": "arm",
+        "arm32_v5": "arm",
+        "arm32_v6": "arm",
+        "arm32_v7": "arm",
         "mips": "mips",
         "ppc32": "powerpc",
         "ppc64": "powerpc",

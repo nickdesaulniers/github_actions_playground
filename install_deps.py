@@ -9,9 +9,9 @@ def check_run(command_str):
 def install_deps():
     arch_dependencies = {
       "arm64": ["qemu-system-aarch64"],
-      "arm_v5": ["qemu-system-arm"],
-      "arm_v6": ["qemu-system-arm"],
-      "arm_v7": ["qemu-system-arm"],
+      "arm32_v5": ["qemu-system-arm"],
+      "arm32_v6": ["qemu-system-arm"],
+      "arm32_v7": ["qemu-system-arm"],
       "mips": ["qemu-system-mips"],
       "ppc32": ["qemu-system-ppc"],
       "ppc64": ["qemu-system-ppc"],

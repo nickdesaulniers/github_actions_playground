@@ -29,7 +29,7 @@ jobs:
     needs: kick_tuxbuild
     strategy:
       matrix:
-        ARCH: [arm_v5, arm_v7, arm64, x86, x86_64]
+        ARCH: [arm32_v5, arm32_v7, arm64, x86, x86_64]
         LLVM: [0, 1]
         LLVM_IAS: [0, 1]
       fail-fast: false
@@ -54,7 +54,8 @@ jobs:
     strategy:
       matrix:
         # TODO: mipsel
-        ARCH: [arm_v6, mips, ppc32, ppc64, ppc64le, s390]
+        # TODO: mips is broken on mainline
+        ARCH: [arm32_v6, ppc32, ppc64, ppc64le, s390]
       fail-fast: false
     env:
       ARCH: ${{ matrix.ARCH }}

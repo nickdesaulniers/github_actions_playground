@@ -29,9 +29,9 @@ def check_log(build):
 def get_image_name():
     return {
         "arm64": "Image.gz",
-        "arm_v5": "zImage",
-        "arm_v6": "zImage",
-        "arm_v7": "zImage",
+        "arm32_v5": "zImage",
+        "arm32_v6": "zImage",
+        "arm32_v7": "zImage",
         "ppc32": "uImage",
         "ppc64": "vmlinux",
         "ppc64le": "zImage.epapr",
