@@ -6,27 +6,8 @@ import subprocess
 import sys
 import urllib.request
 
-from utils import get_arch
-
-
-def read_builds():
-    try:
-        with open("builds.json") as f:
-            builds = json.load(f)
-    except FileNotFoundError as e:
-        print(
-            "Unable to find builds.json. Artifact not saved?", file=sys.stderr)
-        raise e
-    return builds
-
-
-def find_build(builds):
-    for build in builds:
-        # TODO: check more than ARCH
-        if build["target_arch"] == get_arch():
-            return build
-    print("did not find a matching build", file=sys.stderr)
-    sys.exit(1)
+from utils import get_arch, get_build
+from install_deps import install_deps
 
 
 def fetch_logs(build):
@@ -88,8 +69,8 @@ def boot_test(build):
 
 
 if __name__ == "__main__":
-    builds = read_builds()
-    build = find_build(builds)
+    build = get_build()
     print(json.dumps(build, indent=4))
     check_log(build)
+    install_deps()
     boot_test(build)

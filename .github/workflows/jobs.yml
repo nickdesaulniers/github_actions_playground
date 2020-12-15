@@ -45,8 +45,6 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: output_artifact
-      - name: Install deps
-        run: ./install_deps.py
       - name: Boot Test
         run: ./check_logs.py
   # Example without matrix.
@@ -65,7 +63,5 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: output_artifact
-      - name: Install deps
-        run: ./install_deps.py
       - name: Boot Test
         run: ./check_logs.py

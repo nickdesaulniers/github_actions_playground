@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import subprocess
 import sys
 
@@ -8,7 +6,7 @@ from utils import get_arch
 def check_run(command_str):
     subprocess.run(command_str, check=True)
 
-if __name__ == "__main__":
+def install_deps():
     arch_dependencies = {
       "x86_64": [
           "qemu-system-x86",
