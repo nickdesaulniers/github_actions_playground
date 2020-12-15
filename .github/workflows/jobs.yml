@@ -30,6 +30,7 @@ jobs:
         ARCH: [x86_64, arm64]
         LLVM: [0, 1]
         LLVM_IAS: [0, 1]
+      fail-fast: false
     env:
       ARCH: ${{ matrix.ARCH }}
       LLVM: ${{ matrix.LLVM }}
