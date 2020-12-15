@@ -44,7 +44,7 @@ jobs:
         with:
           name: output_artifact
       - name: Install deps
-        run: sudo apt install qemu-efi-aarch64 qemu-system-x86
+        run: apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && DEBIAN_FRONTEND=noninteractive sudo apt-get install --no-install-recommends -y qemu-efi-aarch64 qemu-system-x86
       - name: Boot Test
         run: ./check_logs.py
   # Example without matrix.
@@ -64,7 +64,7 @@ jobs:
         with:
           name: output_artifact
       - name: Install deps
-        run: sudo apt install qemu-efi-aarch64 qemu-system-x86
+        run: apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && DEBIAN_FRONTEND=noninteractive sudo apt-get install --no-install-recommends -y qemu-efi-aarch64 qemu-system-x86
       - name: Boot Test
         run: ./check_logs.py
   # Copy me to add a new target, fill in ???j
