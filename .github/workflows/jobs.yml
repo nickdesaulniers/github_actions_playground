@@ -13,12 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create jobs
+        # TODO: run tuxbuild
         run: |
-          echo "hello world" > output.txt
+          mv .builds.json builds.json
       - name: save output
         uses: actions/upload-artifact@v2
         with:
-          path: output.txt
+          path: builds.json
           name: output_artifact
   # Example using 3D matrix.
   fetch_and_boot:
@@ -67,19 +68,3 @@ jobs:
         run: sudo apt-get update -qq && DEBIAN_FRONTEND=noninteractive sudo apt-get install --no-install-recommends -y expect qemu-system-aarch64 qemu-system-x86
       - name: Boot Test
         run: ./check_logs.py
-  # Copy me to add a new target, fill in ???j
-  #template:
-    #runs-on: ubuntu-latest
-    #needs: kick_tuxbuild
-    #name: ARCH=??? LLVM=??? LLVM_IAS=???
-    #env:
-      #ARCH: ???
-      #LLVM: ???
-      #LLVM_IAS: ???
-    #steps:
-      #- uses: actions/checkout@v2
-      #- uses: actions/download-artifact@v2
-        #with:
-          #name: output_artifact
-      #- name: Boot Test
-        #run: ./bar.sh
