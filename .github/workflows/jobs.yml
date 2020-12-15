@@ -43,6 +43,8 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: output_artifact
+      - name: Install deps
+        run: sudo apt install qemu-efi-aarch64 qemu-system-x86
       - name: Boot Test
         run: ./check_logs.py
   # Example without matrix.
@@ -61,6 +63,8 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: output_artifact
+      - name: Install deps
+        run: sudo apt install qemu-efi-aarch64 qemu-system-x86
       - name: Boot Test
         run: ./check_logs.py
   # Copy me to add a new target, fill in ???j
