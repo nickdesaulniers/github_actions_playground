@@ -16,7 +16,7 @@ jobs:
       - name: Create jobs
         # TODO: run tuxbuild
         run: |
-          mv .builds.json builds.json
+          mv mock.builds.json builds.json
       - name: save output
         uses: actions/upload-artifact@v2
         with:
