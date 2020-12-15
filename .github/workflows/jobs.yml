@@ -23,13 +23,13 @@ jobs:
           path: builds.json
           name: output_artifact
   # Example using 3D matrix.
-  fetch_and_boot:
+  LLVM_1_LLVM_IAS_1:
     runs-on: ubuntu-20.04
     # Waits on kick_tuxbuild to complete.
     needs: kick_tuxbuild
     strategy:
       matrix:
-        ARCH: [x86_64, arm64]
+        ARCH: [arm_v5, arm_v7, arm64, x86, x86_64]
         LLVM: [0, 1]
         LLVM_IAS: [0, 1]
       fail-fast: false
@@ -47,14 +47,37 @@ jobs:
           name: output_artifact
       - name: Boot Test
         run: ./check_logs.py
+  LLVM_0_LLVM_IAS_0:
+    runs-on: ubuntu-20.04
+    # Waits on kick_tuxbuild to complete.
+    needs: kick_tuxbuild
+    strategy:
+      matrix:
+        # TODO: mipsel
+        ARCH: [arm32_v6, mips, ppc32, ppc64, ppc64le, s390]
+      fail-fast: false
+    env:
+      ARCH: ${{ matrix.ARCH }}
+      LLVM: 0
+      LLVM_IAS: 0
+    name: ARCH=${{ matrix.ARCH }} LLVM=${{ matrix.LLVM }} LLVM_IAS=${{ matrix.LLVM_IAS }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - uses: actions/download-artifact@v2
+        with:
+          name: output_artifact
+      - name: Boot Test
+        run: ./check_logs.py
   # Example without matrix.
-  fetch_and_boot_non_matrix:
+  riscv:
     runs-on: ubuntu-20.04
     needs: kick_tuxbuild
     name: ARCH=riscv LLVM=1 LLVM_IAS=1
     env:
       ARCH: riscv
-      LLVM: 1
+      LLVM: 0
       LLVM_IAS: 1
     steps:
       - uses: actions/checkout@v2
