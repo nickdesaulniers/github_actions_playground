@@ -60,7 +60,7 @@ jobs:
       ARCH: ${{ matrix.ARCH }}
       LLVM: 0
       LLVM_IAS: 0
-    name: ARCH=${{ matrix.ARCH }} LLVM=${{ matrix.LLVM }} LLVM_IAS=${{ matrix.LLVM_IAS }}
+    name: ARCH=${{ matrix.ARCH }}
     steps:
       - uses: actions/checkout@v2
         with:
