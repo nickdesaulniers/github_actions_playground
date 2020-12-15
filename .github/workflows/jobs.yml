@@ -42,7 +42,7 @@ jobs:
         with:
           name: output_artifact
       - name: Boot Test
-        run: ./bar.sh
+        run: ./check_logs.py
   # Example without matrix.
   fetch_and_boot_non_matrix:
     runs-on: ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
         with:
           name: output_artifact
       - name: Boot Test
-        run: ./bar.sh
+        run: ./check_logs.py
   # Copy me to add a new target, fill in ???j
   #template:
     #runs-on: ubuntu-latest
