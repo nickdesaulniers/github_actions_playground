@@ -54,7 +54,7 @@ jobs:
     strategy:
       matrix:
         # TODO: mipsel
-        ARCH: [arm32_v6, mips, ppc32, ppc64, ppc64le, s390]
+        ARCH: [arm_v6, mips, ppc32, ppc64, ppc64le, s390]
       fail-fast: false
     env:
       ARCH: ${{ matrix.ARCH }}
