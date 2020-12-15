@@ -6,6 +6,8 @@ import subprocess
 import sys
 import urllib.request
 
+from utils import get_arch
+
 
 def read_builds():
     try:
@@ -16,13 +18,6 @@ def read_builds():
             "Unable to find builds.json. Artifact not saved?", file=sys.stderr)
         raise e
     return builds
-
-
-def get_arch():
-    if not "ARCH" in os.environ:
-        print("$ARCH must be specified", file=sys.stderr)
-        sys.exit(1)
-    return os.environ["ARCH"]
 
 
 def find_build(builds):
