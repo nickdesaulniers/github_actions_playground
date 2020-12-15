@@ -38,6 +38,7 @@ jobs:
     name: ARCH=${{ matrix.ARCH }} LLVM=${{ matrix.LLVM }} LLVM_IAS=${{ matrix.LLVM_IAS }}
     steps:
       - uses: actions/checkout@v2
+        submodules: true
       - uses: actions/download-artifact@v2
         with:
           name: output_artifact
@@ -54,6 +55,7 @@ jobs:
       LLVM_IAS: 1
     steps:
       - uses: actions/checkout@v2
+        submodules: true
       - uses: actions/download-artifact@v2
         with:
           name: output_artifact
