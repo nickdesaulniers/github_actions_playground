@@ -28,10 +28,10 @@ def check_log(build):
 
 def get_image_name():
     return {
-        "arm64": "Image.gz",
         "arm32_v5": "zImage",
         "arm32_v6": "zImage",
         "arm32_v7": "zImage",
+        "arm64": "Image.gz",
         "ppc32": "uImage",
         "ppc64": "vmlinux",
         "ppc64le": "zImage.epapr",
@@ -43,7 +43,19 @@ def get_image_name():
 
 
 def get_image_path():
-    return "arch/%s/boot/" % get_arch()
+    return {
+        "arm32_v5": "arch/arm/boot/",
+        "arm32_v6": "arch/arm/boot/",
+        "arm32_v7": "arch/arm/boot/",
+        "arm64": "arch/arm64/boot/",
+        "i386": "arch/x86/boot/",
+        "ppc32": "arch/powerpc/boot/",
+        "ppc64": "arch/powerpc/boot/",
+        "ppc64le": "arch/powerpc/boot/",
+        "riscv": "arch/riscv/boot/",
+        "s390": "arch/s390/boot/",
+        "x86_64": "arch/x86_64/boot/",
+    }[get_arch()]
 
 
 def fetch_kernel_image(build):
@@ -52,7 +64,7 @@ def fetch_kernel_image(build):
     image_path = get_image_path()
     # mkdir -p
     os.makedirs(image_path, exist_ok=True)
-    print("fetching kernel image from: %s" % url)
+    print("fetching kernel image from: %s, to: %s" % (url, image_path + image_fname)
     # TODO: use something more robust like python wget library.
     urllib.request.urlretrieve(url, image_path + image_fname)
 
