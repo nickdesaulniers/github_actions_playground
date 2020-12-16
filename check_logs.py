@@ -64,7 +64,7 @@ def fetch_kernel_image(build):
     image_path = get_image_path()
     # mkdir -p
     os.makedirs(image_path, exist_ok=True)
-    print("fetching kernel image from: %s, to: %s" % (url, image_path + image_fname)
+    print("fetching kernel image from: %s, to: %s" % (url, image_path + image_fname))
     # TODO: use something more robust like python wget library.
     urllib.request.urlretrieve(url, image_path + image_fname)
 
