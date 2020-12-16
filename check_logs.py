@@ -48,12 +48,12 @@ def get_image_path():
         "arm32_v6": "arch/arm/boot/",
         "arm32_v7": "arch/arm/boot/",
         "arm64": "arch/arm64/boot/",
-        "i386": "arch/x86/boot/",
         "ppc32": "arch/powerpc/boot/",
         "ppc64": "arch/powerpc/boot/",
         "ppc64le": "arch/powerpc/boot/",
         "riscv": "arch/riscv/boot/",
         "s390": "arch/s390/boot/",
+        "x86": "arch/x86/boot/",
         "x86_64": "arch/x86_64/boot/",
     }[get_arch()]
 
@@ -67,6 +67,12 @@ def fetch_kernel_image(build):
     print("fetching kernel image from: %s, to: %s" % (url, image_path + image_fname))
     # TODO: use something more robust like python wget library.
     urllib.request.urlretrieve(url, image_path + image_fname)
+    # Suspect download is failing.
+    if os.path.exists:
+        print("Filesize: ", os.path.getsize(image_path + image_fname))
+    else:
+        print("Unable to download kernel image", file=sys.stderr)
+        sys.exit(1)
 
 
 def cwd():
