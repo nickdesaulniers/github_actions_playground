@@ -81,20 +81,7 @@ def get_image_name():
 
 
 def get_image_path():
-    return {
-        "arm32_v5": "arch/arm/boot/",
-        "arm32_v6": "arch/arm/boot/",
-        "arm32_v7": "arch/arm/boot/",
-        "arm64": "arch/arm64/boot/",
-        "mips": "arch/mips/boot/",
-        "ppc32": "arch/powerpc/boot/",
-        "ppc64": "arch/powerpc/boot/",
-        "ppc64le": "arch/powerpc/boot/",
-        "riscv": "arch/riscv/boot/",
-        "s390": "arch/s390/boot/",
-        "x86": "arch/x86/boot/",
-        "x86_64": "arch/x86_64/boot/",
-    }[get_cbl_arch()]
+    return "arch/%s/boot/" % _cbl_arch_to_arch(get_cbl_arch())
 
 
 def _find_build(builds):
