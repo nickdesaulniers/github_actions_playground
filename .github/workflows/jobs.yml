@@ -8,15 +8,17 @@ on:
   workflow_dispatch:
 jobs:
   kick_tuxbuild:
-    name: Kick Off Builds
+    name: TuxBuild
     # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
     runs-on: ubuntu-20.04
+    container: tuxbuild/tuxbuild
+    env:
+      TUXBUILD_TOKEN: ${{ secrets.TUXBUILD_TOKEN }}
     steps:
       - uses: actions/checkout@v2
-      - name: Create jobs
-        # TODO: run tuxbuild
+      - name: tuxbuild
         run: |
-          mv mock.builds.json builds.json
+          tuxbuild build-set --git-repo 'https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git' --git-ref master --set-name clang-nightly --json-out builds.json --tux-config tuxbuild.yml
       - name: save output
         uses: actions/upload-artifact@v2
         with:
@@ -104,7 +106,7 @@ jobs:
   riscv:
     runs-on: ubuntu-20.04
     needs: kick_tuxbuild
-    name: ARCH=riscv LLVM=1 LLVM_IAS=1
+    name: ARCH=riscv LLVM=1 LLVM_IAS=1 BOOT=0
     env:
       ARCH: riscv
       LLVM: 0
