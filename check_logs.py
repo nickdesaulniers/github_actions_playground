@@ -26,6 +26,26 @@ def check_log(build):
         fetch_logs(build)
 
 
+def fetch_dtb(cbl_arch, build):
+    if cbl_arch != "arm32_v5" and cbl_arch != "arm32_v6":
+        return
+    dtb = {
+        "arm32_v5": "aspeed-bmc-opp-palmetto.dtb",
+        "arm32_v6": "aspeed-bmc-opp-romulus.dtb",
+    }[cbl_arch]
+    url = build["download_url"] + "dtbs/" + dtb
+    image_path = "arch/arm/boot/dts/"
+    # mkdir -p
+    os.makedirs(image_path, exist_ok=True)
+    print_yellow("fetching DTB from: %s, to: %s" % (url, image_path + dtb))
+    urllib.request.urlretrieve(url, image_path + dtb)
+    if os.path.exists:
+        print_yellow("Filesize: %d" % os.path.getsize(image_path + dtb))
+    else:
+        print_red("Unable to download dtb")
+        sys.exit(1)
+
+
 def fetch_kernel_image(cbl_arch, build):
     image_fname = get_image_name(cbl_arch)
     url = build["download_url"] + image_fname
@@ -67,6 +87,7 @@ def boot_test(cbl_arch, build):
         print_yellow("boot test disabled via config, skipping boot")
         return
     fetch_kernel_image(cbl_arch, build)
+    fetch_dtb(cbl_arch, build)
     run_boot(cbl_arch)
 
 

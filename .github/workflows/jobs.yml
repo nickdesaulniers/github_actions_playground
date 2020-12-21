@@ -29,7 +29,7 @@ jobs:
     needs: kick_tuxbuild
     strategy:
       matrix:
-        ARCH: [arm32_v7, arm64, x86, x86_64]
+        ARCH: [arm32_v5, arm32_v7, arm64, x86, x86_64]
         LLVM: [0, 1]
         LLVM_IAS: [0, 1]
       fail-fast: false
@@ -57,7 +57,7 @@ jobs:
         # TODO: mips is failing build test unexpectedly: https://gitlab.com/Linaro/tuxmake/-/issues/110
         # TODO: mipsel: https://gitlab.com/Linaro/tuxmake/-/issues/108#note_471776893
         # TODO: ppc32, ppc64: https://gitlab.com/Linaro/tuxmake/-/issues/108
-        ARCH: [mips]
+        ARCH: [arm32_v6, mips]
       fail-fast: false
     env:
       ARCH: ${{ matrix.ARCH }}
@@ -80,7 +80,7 @@ jobs:
     needs: kick_tuxbuild
     strategy:
       matrix:
-        # TODO: arm32_v5, arm32_v6, ppc64le: https://gitlab.com/Linaro/tuxbuild/-/issues/83
+        # TODO: ppc64le: https://gitlab.com/Linaro/tuxmake/-/issues/109
         # check_logs.py will skip boot tests if there were errors during build.
         ARCH: [arm32_v5, arm32_v6, ppc64le, s390]
       fail-fast: false
