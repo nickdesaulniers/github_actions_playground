@@ -50,7 +50,7 @@ def _cbl_arch_to_config(arch):
         "arm64": "defconfig",
         "arm32_v5": "multi_v5_defconfig",
         "arm32_v6": "aspeed_g5_defconfig",
-        "arm32_v7": "defconfig",
+        "arm32_v7": "multi_v7_defconfig",
         "mips": "malta_kvm_guest_defconfig",
         "ppc32": "ppc44x_defconfig",
         "ppc64": "pseries_defconfig",
