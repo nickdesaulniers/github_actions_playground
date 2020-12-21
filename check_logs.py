@@ -6,7 +6,7 @@ import subprocess
 import sys
 import urllib.request
 
-from utils import get_arch, get_build
+from utils import get_cbl_arch, get_build
 from install_deps import install_deps
 
 
@@ -39,7 +39,7 @@ def get_image_name():
         "s390": "bzImage",
         "x86": "bzImage",
         "x86_64": "bzImage",
-    }[get_arch()]
+    }[get_cbl_arch()]
 
 
 def get_image_path():
@@ -55,7 +55,7 @@ def get_image_path():
         "s390": "arch/s390/boot/",
         "x86": "arch/x86/boot/",
         "x86_64": "arch/x86_64/boot/",
-    }[get_arch()]
+    }[get_cbl_arch()]
 
 
 def fetch_kernel_image(build):
@@ -83,7 +83,7 @@ def cwd():
 def run_boot():
     try:
         subprocess.run(["./boot-utils/boot-qemu.sh", "-a",
-                        get_arch(), "-k",
+                        get_cbl_arch(), "-k",
                         cwd()],
                        check=True)
     except subprocess.CalledProcessError as e:
