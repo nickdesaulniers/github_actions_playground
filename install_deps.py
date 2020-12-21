@@ -25,13 +25,13 @@ def install_deps(cbl_arch):
       "riscv": ["qemu-system-riscv64"],
     }
     if not cbl_arch in arch_dependencies:
-        print("Unknown arch \"%s\", can't install dependencies" % arch,
+        print("Unknown arch \"%s\", can't install dependencies" % cbl_arch,
               file=sys.stderr)
         sys.exit(1)
     # Not specific to any arch.
     dependencies = [
         "expect", # unbuffer command used by boot-utils/boot-qemu.sh.
-    ] + arch_dependencies[arch]
+    ] + arch_dependencies[cbl_arch]
     print("Installing:", dependencies)
 
     # sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install --no-install-recommends -y expect qemu-system-aarch64 qemu-system-x86
