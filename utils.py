@@ -1,13 +1,5 @@
 import json
-import os
 import sys
-
-
-def get_cbl_arch():
-    if not "ARCH" in os.environ:
-        print("$ARCH must be specified", file=sys.stderr)
-        sys.exit(1)
-    return os.environ["ARCH"]
 
 
 def _read_builds():
@@ -42,7 +34,7 @@ def _cbl_arch_to_arch(arch):
     }[arch]
 
 
-def _cbl_arch_to_config(arch):
+def _cbl_arch_to_config(cbl_arch):
     """
     This should match tuxbuild.yml, so that we can find which build in
     builds.json is the one we care about.
@@ -60,10 +52,10 @@ def _cbl_arch_to_config(arch):
         "s390": "defconfig",
         "x86": "i386_defconfig",
         "x86_64": "defconfig",
-    }[arch]
+    }[cbl_arch]
 
 
-def get_image_name():
+def get_image_name(cbl_arch):
     return {
         "arm32_v5": "zImage",
         "arm32_v6": "zImage",
@@ -77,15 +69,14 @@ def get_image_name():
         "s390": "bzImage",
         "x86": "bzImage",
         "x86_64": "bzImage",
-    }[get_cbl_arch()]
+    }[cbl_arch]
 
 
-def get_image_path():
-    return "arch/%s/boot/" % _cbl_arch_to_arch(get_cbl_arch())
+def get_image_path(cbl_arch):
+    return "arch/%s/boot/" % _cbl_arch_to_arch(cbl_arch)
 
 
-def _find_build(builds):
-    cbl_arch = get_cbl_arch()
+def _find_build(cbl_arch, builds):
     arch = _cbl_arch_to_arch(cbl_arch)
     config = _cbl_arch_to_config(cbl_arch)
     for build in builds:
@@ -94,5 +85,5 @@ def _find_build(builds):
     print("Unable to find build", file=sys.stderr)
     sys.exit(1)
 
-def get_build():
-    return _find_build(_read_builds())
+def get_build(cbl_arch):
+    return _find_build(cbl_arch, _read_builds())

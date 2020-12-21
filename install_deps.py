@@ -2,15 +2,14 @@ import os
 import subprocess
 import sys
 
-from utils import get_cbl_arch
-
 def check_run(command_str):
     subprocess.run(command_str, check=True)
 
-def install_deps():
+def install_deps(cbl_arch):
     if not "INSTALL_DEPS" in os.environ:
         return
 
+    # TODO: could be smaller if we used cbl_arch_to_arch
     arch_dependencies = {
       "arm64": ["qemu-system-aarch64"],
       "arm32_v5": ["qemu-system-arm"],
@@ -25,8 +24,7 @@ def install_deps():
       "s390": [],
       "riscv": ["qemu-system-riscv64"],
     }
-    arch = get_cbl_arch()
-    if not arch in arch_dependencies:
+    if not cbl_arch in arch_dependencies:
         print("Unknown arch \"%s\", can't install dependencies" % arch,
               file=sys.stderr)
         sys.exit(1)

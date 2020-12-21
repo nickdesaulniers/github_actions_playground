@@ -6,7 +6,7 @@ import subprocess
 import sys
 import urllib.request
 
-from utils import get_cbl_arch, get_build, get_image_name, get_image_path
+from utils import get_build, get_image_name, get_image_path
 from install_deps import install_deps
 
 
@@ -26,10 +26,10 @@ def check_log(build):
         fetch_logs(build)
 
 
-def fetch_kernel_image(build):
-    image_fname = get_image_name()
+def fetch_kernel_image(cbl_arch, build):
+    image_fname = get_image_name(cbl_arch)
     url = build["download_url"] + image_fname
-    image_path = get_image_path()
+    image_path = get_image_path(cbl_arch)
     # mkdir -p
     os.makedirs(image_path, exist_ok=True)
     print("fetching kernel image from: %s, to: %s" % (url, image_path + image_fname))
@@ -48,11 +48,9 @@ def cwd():
     return os.getcwd()
 
 
-def run_boot():
+def run_boot(cbl_arch):
     try:
-        subprocess.run(["./boot-utils/boot-qemu.sh", "-a",
-                        get_cbl_arch(), "-k",
-                        cwd()],
+        subprocess.run(["./boot-utils/boot-qemu.sh", "-a", cbl_arch, "-k", cwd()],
                        check=True)
     except subprocess.CalledProcessError as e:
         if e.returncode == 124:
@@ -61,20 +59,24 @@ def run_boot():
 
 
 
-def boot_test(build):
+def boot_test(cbl_arch, build):
     if build["errors_count"] > 0:
         print("errors encountered during build, skipping boot", file=sys.stderr)
         sys.exit(1)
     if "BOOT" in os.environ and os.environ["BOOT"] == "0":
         print("boot test disabled via config, skipping boot", file=sys.stderr)
         return
-    fetch_kernel_image(build)
-    run_boot()
+    fetch_kernel_image(cbl_arch, build)
+    run_boot(cbl_arch)
 
 
 if __name__ == "__main__":
-    build = get_build()
+    if not "ARCH" in os.environ:
+        print("$ARCH must be specified", file=sys.stderr)
+        sys.exit(1)
+    cbl_arch = os.environ["ARCH"]
+    build = get_build(cbl_arch)
     print(json.dumps(build, indent=4))
     check_log(build)
-    install_deps()
-    boot_test(build)
+    install_deps(cbl_arch)
+    boot_test(cbl_arch, build)
