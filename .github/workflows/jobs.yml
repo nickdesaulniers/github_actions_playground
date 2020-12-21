@@ -54,9 +54,9 @@ jobs:
     needs: kick_tuxbuild
     strategy:
       matrix:
-        # TODO: mipsel
+        # TODO: mipsel: https://gitlab.com/Linaro/tuxmake/-/issues/108#note_471776893
         # TODO: ppc32, ppc64: https://gitlab.com/Linaro/tuxmake/-/issues/108
-        ARCH: [mips, ppc64le]
+        ARCH: [mips]
       fail-fast: false
     env:
       ARCH: ${{ matrix.ARCH }}
@@ -79,9 +79,9 @@ jobs:
     needs: kick_tuxbuild
     strategy:
       matrix:
-        # TODO: arm32_v5, arm32_v6: https://gitlab.com/Linaro/tuxbuild/-/issues/83
+        # TODO: arm32_v5, arm32_v6, ppc64le: https://gitlab.com/Linaro/tuxbuild/-/issues/83
         # check_logs.py will skip boot tests if there were errors during build.
-        ARCH: [arm32_v5, arm32_v6, s390]
+        ARCH: [arm32_v5, arm32_v6, ppc64le, s390]
       fail-fast: false
     env:
       ARCH: ${{ matrix.ARCH }}
