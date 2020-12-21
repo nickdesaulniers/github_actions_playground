@@ -97,6 +97,9 @@ def boot_test(build):
     if build["errors_count"] > 0:
         print("errors encountered during build, skipping boot", file=sys.stderr)
         sys.exit(1)
+    if "BOOT" in os.environ and os.environ["BOOT"] == "0":
+        print("boot test disabled via config, skipping boot", file=sys.stderr)
+        return
     fetch_kernel_image(build)
     run_boot()
 

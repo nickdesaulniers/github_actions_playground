@@ -57,7 +57,7 @@ jobs:
         # TODO: mipsel
         # TODO: mips is broken on mainline
         # TODO: ppc32, ppc64: https://gitlab.com/Linaro/tuxmake/-/issues/108
-        ARCH: [arm32_v6, ppc64le, s390]
+        ARCH: [arm32_v6, ppc64le]
       fail-fast: false
     env:
       ARCH: ${{ matrix.ARCH }}
@@ -65,6 +65,30 @@ jobs:
       LLVM_IAS: 0
       INSTALL_DEPS: 1
     name: ARCH=${{ matrix.ARCH }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - uses: actions/download-artifact@v2
+        with:
+          name: output_artifact
+      - name: Boot Test
+        run: ./check_logs.py
+  non_boot_test:
+    runs-on: ubuntu-20.04
+    # Waits on kick_tuxbuild to complete.
+    needs: kick_tuxbuild
+    strategy:
+      matrix:
+        ARCH: [s390]
+      fail-fast: false
+    env:
+      ARCH: ${{ matrix.ARCH }}
+      LLVM: 0
+      LLVM_IAS: 0
+      INSTALL_DEPS: 1
+      BOOT: 0
+    name: ARCH=${{ matrix.ARCH }} BOOT=0
     steps:
       - uses: actions/checkout@v2
         with:
