@@ -2,17 +2,6 @@ import json
 import sys
 
 
-def _read_builds():
-    try:
-        with open("builds.json") as f:
-            builds = json.load(f)
-    except FileNotFoundError as e:
-        print(
-            "Unable to find builds.json. Artifact not saved?", file=sys.stderr)
-        raise e
-    return builds
-
-
 def _cbl_arch_to_arch(arch):
     """
     Translate what we call the ARCH in our worklist.yml to what tuxbuild calls
@@ -76,14 +65,32 @@ def get_image_path(cbl_arch):
     return "arch/%s/boot/" % _cbl_arch_to_arch(cbl_arch)
 
 
+def _read_builds():
+    try:
+        with open("builds.json") as f:
+            builds = json.load(f)
+    except FileNotFoundError as e:
+        print_red("Unable to find builds.json. Artifact not saved?")
+        raise e
+    return builds
+
+
 def _find_build(cbl_arch, builds):
     arch = _cbl_arch_to_arch(cbl_arch)
     config = _cbl_arch_to_config(cbl_arch)
     for build in builds:
         if build["target_arch"] == arch and build["kconfig"][0] == config:
             return build
-    print("Unable to find build", file=sys.stderr)
+    print_red("Unable to find build")
     sys.exit(1)
 
 def get_build(cbl_arch):
     return _find_build(cbl_arch, _read_builds())
+
+
+def print_red(msg):
+    print("\033[91m%s\033[0m" % msg, file=sys.stderr)
+
+
+def print_yellow(msg):
+    print("\033[93m%s\033[0m" % msg)
