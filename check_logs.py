@@ -81,10 +81,16 @@ def cwd():
 
 
 def run_boot():
-    subprocess.run(["./boot-utils/boot-qemu.sh", "-a",
-                    get_arch(), "-k",
-                    cwd()],
-                   check=True)
+    try:
+        subprocess.run(["./boot-utils/boot-qemu.sh", "-a",
+                        get_arch(), "-k",
+                        cwd()],
+                       check=True)
+    except subprocess.CalledProcessError as e:
+        if e.returncode == 124:
+            print("Image failed to boot", file=sys.stderr)
+        raise e
+
 
 
 def boot_test(build):
