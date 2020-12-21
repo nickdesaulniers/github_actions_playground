@@ -108,6 +108,7 @@ jobs:
       ARCH: riscv
       LLVM: 0
       LLVM_IAS: 1
+      INSTALL_DEPS: 1
     steps:
       - uses: actions/checkout@v2
         with:
