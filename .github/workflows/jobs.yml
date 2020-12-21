@@ -37,6 +37,7 @@ jobs:
       ARCH: ${{ matrix.ARCH }}
       LLVM: ${{ matrix.LLVM }}
       LLVM_IAS: ${{ matrix.LLVM_IAS }}
+      INSTALL_DEPS: 1
     name: ARCH=${{ matrix.ARCH }} LLVM=${{ matrix.LLVM }} LLVM_IAS=${{ matrix.LLVM_IAS }}
     steps:
       - uses: actions/checkout@v2
@@ -61,6 +62,7 @@ jobs:
       ARCH: ${{ matrix.ARCH }}
       LLVM: 0
       LLVM_IAS: 0
+      INSTALL_DEPS: 1
     name: ARCH=${{ matrix.ARCH }}
     steps:
       - uses: actions/checkout@v2

@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 
@@ -7,6 +8,9 @@ def check_run(command_str):
     subprocess.run(command_str, check=True)
 
 def install_deps():
+    if not "INSTALL_DEPS" in os.environ:
+        return
+
     arch_dependencies = {
       "arm64": ["qemu-system-aarch64"],
       "arm32_v5": ["qemu-system-arm"],
