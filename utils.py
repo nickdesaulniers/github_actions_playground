@@ -27,10 +27,10 @@ def _cbl_arch_to_arch(arch):
     it in the build.json
     """
     return {
-        "arm64": "arm64",
         "arm32_v5": "arm",
         "arm32_v6": "arm",
         "arm32_v7": "arm",
+        "arm64": "arm64",
         "mips": "mips",
         "ppc32": "powerpc",
         "ppc64": "powerpc",
@@ -41,16 +41,17 @@ def _cbl_arch_to_arch(arch):
         "x86_64": "x86_64",
     }[arch]
 
+
 def _cbl_arch_to_config(arch):
     """
     This should match tuxbuild.yml, so that we can find which build in
     builds.json is the one we care about.
     """
     return {
-        "arm64": "defconfig",
         "arm32_v5": "multi_v5_defconfig",
         "arm32_v6": "aspeed_g5_defconfig",
         "arm32_v7": "multi_v7_defconfig",
+        "arm64": "defconfig",
         "mips": "malta_kvm_guest_defconfig",
         "ppc32": "ppc44x_defconfig",
         "ppc64": "pseries_defconfig",
@@ -60,6 +61,40 @@ def _cbl_arch_to_config(arch):
         "x86": "i386_defconfig",
         "x86_64": "defconfig",
     }[arch]
+
+
+def get_image_name():
+    return {
+        "arm32_v5": "zImage",
+        "arm32_v6": "zImage",
+        "arm32_v7": "zImage",
+        "arm64": "Image.gz",
+        "mips": "vmlinux",
+        "ppc32": "uImage",
+        "ppc64": "vmlinux",
+        "ppc64le": "zImage.epapr",
+        "riscv": "Image.gz",
+        "s390": "bzImage",
+        "x86": "bzImage",
+        "x86_64": "bzImage",
+    }[get_cbl_arch()]
+
+
+def get_image_path():
+    return {
+        "arm32_v5": "arch/arm/boot/",
+        "arm32_v6": "arch/arm/boot/",
+        "arm32_v7": "arch/arm/boot/",
+        "arm64": "arch/arm64/boot/",
+        "mips": "arch/mips/boot/",
+        "ppc32": "arch/powerpc/boot/",
+        "ppc64": "arch/powerpc/boot/",
+        "ppc64le": "arch/powerpc/boot/",
+        "riscv": "arch/riscv/boot/",
+        "s390": "arch/s390/boot/",
+        "x86": "arch/x86/boot/",
+        "x86_64": "arch/x86_64/boot/",
+    }[get_cbl_arch()]
 
 
 def _find_build(builds):

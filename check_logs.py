@@ -6,7 +6,7 @@ import subprocess
 import sys
 import urllib.request
 
-from utils import get_cbl_arch, get_build
+from utils import get_cbl_arch, get_build, get_image_name, get_image_path
 from install_deps import install_deps
 
 
@@ -24,38 +24,6 @@ def check_log(build):
     if warnings_count + errors_count > 0:
         print("%d warnings, %d errors" % (warnings_count, errors_count))
         fetch_logs(build)
-
-
-def get_image_name():
-    return {
-        "arm32_v5": "zImage",
-        "arm32_v6": "zImage",
-        "arm32_v7": "zImage",
-        "arm64": "Image.gz",
-        "ppc32": "uImage",
-        "ppc64": "vmlinux",
-        "ppc64le": "zImage.epapr",
-        "riscv": "Image.gz",
-        "s390": "bzImage",
-        "x86": "bzImage",
-        "x86_64": "bzImage",
-    }[get_cbl_arch()]
-
-
-def get_image_path():
-    return {
-        "arm32_v5": "arch/arm/boot/",
-        "arm32_v6": "arch/arm/boot/",
-        "arm32_v7": "arch/arm/boot/",
-        "arm64": "arch/arm64/boot/",
-        "ppc32": "arch/powerpc/boot/",
-        "ppc64": "arch/powerpc/boot/",
-        "ppc64le": "arch/powerpc/boot/",
-        "riscv": "arch/riscv/boot/",
-        "s390": "arch/s390/boot/",
-        "x86": "arch/x86/boot/",
-        "x86_64": "arch/x86_64/boot/",
-    }[get_cbl_arch()]
 
 
 def fetch_kernel_image(build):
