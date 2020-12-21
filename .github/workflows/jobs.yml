@@ -56,7 +56,8 @@ jobs:
       matrix:
         # TODO: mipsel
         # TODO: mips is broken on mainline
-        ARCH: [arm32_v6, ppc32, ppc64, ppc64le, s390]
+        # TODO: ppc32, ppc64: https://gitlab.com/Linaro/tuxmake/-/issues/108
+        ARCH: [arm32_v6, ppc64le, s390]
       fail-fast: false
     env:
       ARCH: ${{ matrix.ARCH }}
