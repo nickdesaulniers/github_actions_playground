@@ -54,6 +54,7 @@ jobs:
     needs: kick_tuxbuild
     strategy:
       matrix:
+        # TODO: mips is failing build test unexpectedly: https://gitlab.com/Linaro/tuxmake/-/issues/110
         # TODO: mipsel: https://gitlab.com/Linaro/tuxmake/-/issues/108#note_471776893
         # TODO: ppc32, ppc64: https://gitlab.com/Linaro/tuxmake/-/issues/108
         ARCH: [mips]
