@@ -22,8 +22,8 @@ def install_deps():
       "ppc64le": ["qemu-system-ppc"],
       "x86": ["qemu-system-x86"],
       "x86_64": ["qemu-system-x86"],
-      "s390": ["qemu-system-misc"],
-      "riscv": ["qemu-system-misc"],
+      "s390": [],
+      "riscv": ["qemu-system-riscv64"],
     }
     arch = get_cbl_arch()
     if not arch in arch_dependencies:
@@ -37,6 +37,7 @@ def install_deps():
     print("Installing:", dependencies)
 
     # sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install --no-install-recommends -y expect qemu-system-aarch64 qemu-system-x86
+    # TODO: should we skip update?
     subprocess.run("sudo apt-get update".split(" "), check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     env = {"DEBIAN_FRONTEND": "noninteractive"}
     subprocess.run("sudo apt-get install --no-install-recommends -y".split(" ") + dependencies, check=True, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
