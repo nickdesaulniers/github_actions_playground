@@ -35,7 +35,7 @@ def get_job_name(build):
 def get_steps(build):
     name = get_job_name(build)
     return {
-        name: {
+        name.replace(" ", "_").replace("=", "_"): {
             "runs-on": "ubuntu-20.04",
             "needs": "kick_tuxbuild",
             "name": name,
