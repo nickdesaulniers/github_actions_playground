@@ -20,7 +20,7 @@ jobs:
       with:
         path: builds.json
         name: output_artifact
-  ARCH_arm_LLVM_1_LLVM_IAS_1_BOOT_1:
+  ARCH_arm_LLVM_1_LLVM_IAS_1_BOOT_1_multi_v5_defconfig:
     runs-on: ubuntu-20.04
     needs: kick_tuxbuild
     name: ARCH=arm LLVM=1 LLVM_IAS=1 BOOT=1
@@ -39,7 +39,45 @@ jobs:
         name: output_artifact.py
     - name: Boot Test
       run: ./check_logs.py
-  ARCH_arm64_LLVM_1_LLVM_IAS_1_BOOT_1:
+  ARCH_arm_LLVM_1_LLVM_IAS_1_BOOT_1_aspeed_g5_defconfig:
+    runs-on: ubuntu-20.04
+    needs: kick_tuxbuild
+    name: ARCH=arm LLVM=1 LLVM_IAS=1 BOOT=1
+    env:
+      ARCH: arm
+      LLVM: true
+      LLVM_IAS: true
+      INSTALL_DEPS: 1
+      BOOT: true
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+    - uses: actions/download-artifact@v2
+      with:
+        name: output_artifact.py
+    - name: Boot Test
+      run: ./check_logs.py
+  ARCH_arm_LLVM_1_LLVM_IAS_1_BOOT_1_multi_v7_defconfig:
+    runs-on: ubuntu-20.04
+    needs: kick_tuxbuild
+    name: ARCH=arm LLVM=1 LLVM_IAS=1 BOOT=1
+    env:
+      ARCH: arm
+      LLVM: true
+      LLVM_IAS: true
+      INSTALL_DEPS: 1
+      BOOT: true
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+    - uses: actions/download-artifact@v2
+      with:
+        name: output_artifact.py
+    - name: Boot Test
+      run: ./check_logs.py
+  ARCH_arm64_LLVM_1_LLVM_IAS_1_BOOT_1_defconfig:
     runs-on: ubuntu-20.04
     needs: kick_tuxbuild
     name: ARCH=arm64 LLVM=1 LLVM_IAS=1 BOOT=1
@@ -58,7 +96,7 @@ jobs:
         name: output_artifact.py
     - name: Boot Test
       run: ./check_logs.py
-  ARCH_mips_LLVM_0_LLVM_IAS_0_BOOT_1:
+  ARCH_mips_LLVM_0_LLVM_IAS_0_BOOT_1_malta_kvm_guest_defconfig:
     runs-on: ubuntu-20.04
     needs: kick_tuxbuild
     name: ARCH=mips LLVM=0 LLVM_IAS=0 BOOT=1
@@ -77,7 +115,7 @@ jobs:
         name: output_artifact.py
     - name: Boot Test
       run: ./check_logs.py
-  ARCH_powerpc_LLVM_0_LLVM_IAS_0_BOOT_1:
+  ARCH_powerpc_LLVM_0_LLVM_IAS_0_BOOT_1_ppc44x_defconfig:
     runs-on: ubuntu-20.04
     needs: kick_tuxbuild
     name: ARCH=powerpc LLVM=0 LLVM_IAS=0 BOOT=1
@@ -96,7 +134,45 @@ jobs:
         name: output_artifact.py
     - name: Boot Test
       run: ./check_logs.py
-  ARCH_riscv_LLVM_1_LLVM_IAS_1_BOOT_0:
+  ARCH_powerpc_LLVM_0_LLVM_IAS_0_BOOT_1_pseries_defconfig:
+    runs-on: ubuntu-20.04
+    needs: kick_tuxbuild
+    name: ARCH=powerpc LLVM=0 LLVM_IAS=0 BOOT=1
+    env:
+      ARCH: powerpc
+      LLVM: false
+      LLVM_IAS: false
+      INSTALL_DEPS: 1
+      BOOT: true
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+    - uses: actions/download-artifact@v2
+      with:
+        name: output_artifact.py
+    - name: Boot Test
+      run: ./check_logs.py
+  ARCH_powerpc_LLVM_0_LLVM_IAS_0_BOOT_1_powernv_defconfig:
+    runs-on: ubuntu-20.04
+    needs: kick_tuxbuild
+    name: ARCH=powerpc LLVM=0 LLVM_IAS=0 BOOT=1
+    env:
+      ARCH: powerpc
+      LLVM: false
+      LLVM_IAS: false
+      INSTALL_DEPS: 1
+      BOOT: true
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+    - uses: actions/download-artifact@v2
+      with:
+        name: output_artifact.py
+    - name: Boot Test
+      run: ./check_logs.py
+  ARCH_riscv_LLVM_1_LLVM_IAS_1_BOOT_0_defconfig:
     runs-on: ubuntu-20.04
     needs: kick_tuxbuild
     name: ARCH=riscv LLVM=1 LLVM_IAS=1 BOOT=0
@@ -115,7 +191,7 @@ jobs:
         name: output_artifact.py
     - name: Boot Test
       run: ./check_logs.py
-  ARCH_s390_LLVM_0_LLVM_IAS_0_BOOT_0:
+  ARCH_s390_LLVM_0_LLVM_IAS_0_BOOT_0_defconfig:
     runs-on: ubuntu-20.04
     needs: kick_tuxbuild
     name: ARCH=s390 LLVM=0 LLVM_IAS=0 BOOT=0
@@ -134,7 +210,26 @@ jobs:
         name: output_artifact.py
     - name: Boot Test
       run: ./check_logs.py
-  ARCH_x86_64_LLVM_1_LLVM_IAS_1_BOOT_1:
+  ARCH_x86_64_LLVM_1_LLVM_IAS_1_BOOT_1_i386_defconfig:
+    runs-on: ubuntu-20.04
+    needs: kick_tuxbuild
+    name: ARCH=x86_64 LLVM=1 LLVM_IAS=1 BOOT=1
+    env:
+      ARCH: x86_64
+      LLVM: true
+      LLVM_IAS: true
+      INSTALL_DEPS: 1
+      BOOT: true
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+    - uses: actions/download-artifact@v2
+      with:
+        name: output_artifact.py
+    - name: Boot Test
+      run: ./check_logs.py
+  ARCH_x86_64_LLVM_1_LLVM_IAS_1_BOOT_1_defconfig:
     runs-on: ubuntu-20.04
     needs: kick_tuxbuild
     name: ARCH=x86_64 LLVM=1 LLVM_IAS=1 BOOT=1

@@ -32,10 +32,14 @@ def get_job_name(build):
     + " BOOT=" + str(int(build["boot"]))
 
 
+def sanitize_job_name(name):
+    return name.replace(" ", "_").replace("=", "_")
+
+
 def get_steps(build):
     name = get_job_name(build)
     return {
-        name.replace(" ", "_").replace("=", "_"): {
+        sanitize_job_name(name + "_" + build["config"]): {
             "runs-on": "ubuntu-20.04",
             "needs": "kick_tuxbuild",
             "name": name,
