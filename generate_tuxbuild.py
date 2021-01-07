@@ -49,7 +49,11 @@ sets:
     for build in config["builds"]:
         if build["repo"] == repo and build["ref"] == ref:
             arch = build["ARCH"] if "ARCH" in build else "x86_64"
-            toolchain = versions[str(build["llvm_version"])]
+            if build["llvm"]:
+                # TODO: llvm-11, llvm-10, etc.
+                toolchain = "llvm-nightly"
+            else:
+                toolchain = versions[str(build["llvm_version"])]
             kconfig = build["config"]
             print("      - {{target_arch: {0}, toolchain: {1}, kconfig: {2}}}".format(arch, toolchain, kconfig))
 
