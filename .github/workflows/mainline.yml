@@ -36,7 +36,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
   ARCH_arm_LLVM_1_LLVM_IAS_1_BOOT_1_aspeed_g5_defconfig:
@@ -55,7 +55,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
   ARCH_arm_LLVM_1_LLVM_IAS_1_BOOT_1_multi_v7_defconfig:
@@ -74,7 +74,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
   ARCH_arm64_LLVM_1_LLVM_IAS_1_BOOT_1_defconfig:
@@ -93,7 +93,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
   ARCH_mips_LLVM_0_LLVM_IAS_0_BOOT_1_malta_kvm_guest_defconfig:
@@ -112,7 +112,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
   ARCH_powerpc_LLVM_0_LLVM_IAS_0_BOOT_1_ppc44x_defconfig:
@@ -131,7 +131,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
   ARCH_powerpc_LLVM_0_LLVM_IAS_0_BOOT_1_pseries_defconfig:
@@ -150,7 +150,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
   ARCH_powerpc_LLVM_0_LLVM_IAS_0_BOOT_1_powernv_defconfig:
@@ -169,7 +169,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
   ARCH_riscv_LLVM_1_LLVM_IAS_1_BOOT_0_defconfig:
@@ -188,7 +188,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
   ARCH_s390_LLVM_0_LLVM_IAS_0_BOOT_0_defconfig:
@@ -207,7 +207,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
   ARCH_x86_64_LLVM_1_LLVM_IAS_1_BOOT_1_i386_defconfig:
@@ -226,7 +226,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
   ARCH_x86_64_LLVM_1_LLVM_IAS_1_BOOT_1_defconfig:
@@ -245,7 +245,7 @@ jobs:
         submodules: true
     - uses: actions/download-artifact@v2
       with:
-        name: output_artifact.py
+        name: output_artifact
     - name: Boot Test
       run: ./check_logs.py
 'on':

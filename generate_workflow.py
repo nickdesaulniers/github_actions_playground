@@ -55,7 +55,7 @@ def get_steps(build):
                     "with": { "submodules": True },
                 }, {
                     "uses": "actions/download-artifact@v2",
-                    "with": { "name": "output_artifact.py" },
+                    "with": { "name": "output_artifact" },
                 }, {
                     "name": "Boot Test",
                     "run": "./check_logs.py",
