@@ -6,7 +6,7 @@ import subprocess
 import sys
 import urllib.request
 
-from utils import get_build, get_image_name, get_image_path, print_red, print_yellow
+from utils import get_build, get_image_name, get_image_path, print_red, print_yellow, get_cbl_name
 from install_deps import install_deps
 
 
@@ -26,13 +26,14 @@ def check_log(build):
         fetch_logs(build)
 
 
-def fetch_dtb(cbl_arch, build):
-    if cbl_arch != "arm32_v5" and cbl_arch != "arm32_v6":
+def fetch_dtb(build):
+    config = os.environ["CONFIG"]
+    if config != "multi_v5_defconfig" and config != "aspeed_g5_defconfig":
         return
     dtb = {
-        "arm32_v5": "aspeed-bmc-opp-palmetto.dtb",
-        "arm32_v6": "aspeed-bmc-opp-romulus.dtb",
-    }[cbl_arch]
+        "multi_v5_defconfig": "aspeed-bmc-opp-palmetto.dtb",
+        "aspeed_g5_defconfig": "aspeed-bmc-opp-romulus.dtb",
+    }[config]
     url = build["download_url"] + "dtbs/" + dtb
     image_path = "arch/arm/boot/dts/"
     # mkdir -p
@@ -46,10 +47,10 @@ def fetch_dtb(cbl_arch, build):
         sys.exit(1)
 
 
-def fetch_kernel_image(cbl_arch, build):
-    image_fname = get_image_name(cbl_arch)
+def fetch_kernel_image(build):
+    image_fname = get_image_name()
     url = build["download_url"] + image_fname
-    image_path = get_image_path(cbl_arch)
+    image_path = get_image_path()
     # mkdir -p
     os.makedirs(image_path, exist_ok=True)
     print_yellow("fetching kernel image from: %s, to: %s" % (url, image_path + image_fname))
@@ -68,7 +69,8 @@ def cwd():
     return os.getcwd()
 
 
-def run_boot(cbl_arch):
+def run_boot():
+    cbl_arch = get_cbl_name()
     try:
         subprocess.run(["./boot-utils/boot-qemu.sh", "-a", cbl_arch, "-k", cwd()],
                        check=True)
@@ -79,25 +81,27 @@ def run_boot(cbl_arch):
 
 
 
-def boot_test(cbl_arch, build):
+def boot_test(build):
     if build["errors_count"] > 0:
         print_red("errors encountered during build, skipping boot")
         sys.exit(1)
     if "BOOT" in os.environ and os.environ["BOOT"] == "0":
         print_yellow("boot test disabled via config, skipping boot")
         return
-    fetch_kernel_image(cbl_arch, build)
-    fetch_dtb(cbl_arch, build)
-    run_boot(cbl_arch)
+    fetch_kernel_image(build)
+    fetch_dtb(build)
+    run_boot()
 
 
 if __name__ == "__main__":
     if not "ARCH" in os.environ:
         print_red("$ARCH must be specified")
         sys.exit(1)
-    cbl_arch = os.environ["ARCH"]
-    build = get_build(cbl_arch)
+    if not "CONFIG" in os.environ:
+        print_red("$CONFIG must be specified")
+        sys.exit(1)
+    build = get_build()
     print(json.dumps(build, indent=4))
     check_log(build)
-    install_deps(cbl_arch)
-    boot_test(cbl_arch, build)
+    install_deps()
+    boot_test(build)

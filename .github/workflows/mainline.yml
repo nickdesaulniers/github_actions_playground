@@ -30,6 +30,7 @@ jobs:
       LLVM_IAS: true
       INSTALL_DEPS: 1
       BOOT: true
+      CONFIG: multi_v5_defconfig
     steps:
     - uses: actions/checkout@v2
       with:
@@ -49,6 +50,7 @@ jobs:
       LLVM_IAS: true
       INSTALL_DEPS: 1
       BOOT: true
+      CONFIG: aspeed_g5_defconfig
     steps:
     - uses: actions/checkout@v2
       with:
@@ -68,6 +70,7 @@ jobs:
       LLVM_IAS: true
       INSTALL_DEPS: 1
       BOOT: true
+      CONFIG: multi_v7_defconfig
     steps:
     - uses: actions/checkout@v2
       with:
@@ -87,6 +90,7 @@ jobs:
       LLVM_IAS: true
       INSTALL_DEPS: 1
       BOOT: true
+      CONFIG: defconfig
     steps:
     - uses: actions/checkout@v2
       with:
@@ -106,6 +110,7 @@ jobs:
       LLVM_IAS: false
       INSTALL_DEPS: 1
       BOOT: true
+      CONFIG: malta_kvm_guest_defconfig
     steps:
     - uses: actions/checkout@v2
       with:
@@ -125,6 +130,7 @@ jobs:
       LLVM_IAS: false
       INSTALL_DEPS: 1
       BOOT: true
+      CONFIG: ppc44x_defconfig
     steps:
     - uses: actions/checkout@v2
       with:
@@ -144,6 +150,7 @@ jobs:
       LLVM_IAS: false
       INSTALL_DEPS: 1
       BOOT: true
+      CONFIG: pseries_defconfig
     steps:
     - uses: actions/checkout@v2
       with:
@@ -163,6 +170,7 @@ jobs:
       LLVM_IAS: false
       INSTALL_DEPS: 1
       BOOT: true
+      CONFIG: powernv_defconfig
     steps:
     - uses: actions/checkout@v2
       with:
@@ -182,6 +190,7 @@ jobs:
       LLVM_IAS: true
       INSTALL_DEPS: 1
       BOOT: false
+      CONFIG: defconfig
     steps:
     - uses: actions/checkout@v2
       with:
@@ -201,6 +210,7 @@ jobs:
       LLVM_IAS: false
       INSTALL_DEPS: 1
       BOOT: false
+      CONFIG: defconfig
     steps:
     - uses: actions/checkout@v2
       with:
@@ -220,6 +230,7 @@ jobs:
       LLVM_IAS: true
       INSTALL_DEPS: 1
       BOOT: true
+      CONFIG: i386_defconfig
     steps:
     - uses: actions/checkout@v2
       with:
@@ -239,6 +250,7 @@ jobs:
       LLVM_IAS: true
       INSTALL_DEPS: 1
       BOOT: true
+      CONFIG: defconfig
     steps:
     - uses: actions/checkout@v2
       with:

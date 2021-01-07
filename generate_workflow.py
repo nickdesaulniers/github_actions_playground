@@ -49,6 +49,7 @@ def get_steps(build):
                 "LLVM_IAS": build["llvm_ias"],
                 "INSTALL_DEPS": 1,
                 "BOOT": build["boot"],
+                "CONFIG": build["config"],
             },
             "steps": [{
                     "uses": "actions/checkout@v2",
